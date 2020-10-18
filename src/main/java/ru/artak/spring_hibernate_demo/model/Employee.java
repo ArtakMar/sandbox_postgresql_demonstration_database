@@ -1,5 +1,8 @@
 package ru.artak.spring_hibernate_demo.model;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +11,13 @@ import java.util.List;
 @Table(name = "employee")
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_id_seq")
+    @GenericGenerator(
+            name = "employee_id_seq",
+            strategy = "enhanced-sequence",
+            parameters = @org.hibernate.annotations.Parameter(
+                    name = SequenceStyleGenerator.SEQUENCE_PARAM,
+                    value = "employee_id_seq"))
     private Long id;
     private String name;
     private int age;
@@ -19,7 +28,7 @@ public class Employee {
     private List<Position> positions = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "employee", fetch = FetchType.EAGER)
-    private List<ContactDetails> items = new ArrayList<>();
+    private List<ContactDetails> contaktDetail = new ArrayList<>();
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "passport_id", referencedColumnName = "id")
     private Passport passport;
@@ -37,26 +46,13 @@ public class Employee {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getAge() {
         return age;
     }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
 
     public Passport getPassport() {
         return passport;
@@ -66,16 +62,16 @@ public class Employee {
         this.passport = passport;
     }
 
-    public List<ContactDetails> getItems() {
-        return items;
+    public List<ContactDetails> getContaktDetail() {
+        return contaktDetail;
     }
 
-    public void setItems(List<ContactDetails> items) {
-        this.items = items;
+    public void setContaktDetail(List<ContactDetails> items) {
+        this.contaktDetail = items;
     }
 
     public void addContactDetails(ContactDetails contactDetails) {
-        items.add(contactDetails);
+        contaktDetail.add(contactDetails);
         contactDetails.setEmployee(this);
     }
 

@@ -1,5 +1,8 @@
 package ru.artak.spring_hibernate_demo.model;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +11,16 @@ import java.util.List;
 @Table(name = "position")
 public class Position {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "position_id_seq")
+    @GenericGenerator(
+            name = "position_id_seq",
+            strategy = "enhanced-sequence",
+            parameters = @org.hibernate.annotations.Parameter(
+                    name = SequenceStyleGenerator.SEQUENCE_PARAM,
+                    value = "position_id_seq"))    private Long id;
     private String name;
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "positions")
-    private List<Employee> employeeSet = new ArrayList<>();
+    private List<Employee> employees = new ArrayList<>();
 
     public Position() {
     }
@@ -25,23 +33,10 @@ public class Position {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    public List<Employee> getEmployeeSet() {
-        return employeeSet;
-    }
 
-    public void setEmployeeSet(List<Employee> employeeSet) {
-        this.employeeSet = employeeSet;
-    }
 }
