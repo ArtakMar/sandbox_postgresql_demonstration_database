@@ -14,7 +14,8 @@
         <sqlFile path="classpath:/2_add_table_position.sql" relativeToChangelogFile="true" stripComments="true"/>
     </changeSet>
     <changeSet id="4" author="artak">
-        <sqlFile path="classpath:/3_add_table_employees_positions.sql" relativeToChangelogFile="true" stripComments="true"/>
+        <sqlFile path="classpath:/3_add_table_employees_positions.sql" relativeToChangelogFile="true"
+                 stripComments="true"/>
     </changeSet>
     <changeSet id="5" author="artak">
         <sqlFile path="classpath:/4_add_table_contact_details.sql" relativeToChangelogFile="true" stripComments="true"/>

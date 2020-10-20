@@ -1,5 +1,6 @@
 package ru.artak.spring_hibernate_demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
@@ -17,9 +18,13 @@ public class Position {
             strategy = "enhanced-sequence",
             parameters = @org.hibernate.annotations.Parameter(
                     name = SequenceStyleGenerator.SEQUENCE_PARAM,
-                    value = "position_id_seq"))    private Long id;
+                    value = "position_id_seq"))
+    private Long id;
     private String name;
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "positions")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "employees_positions",
+            joinColumns = @JoinColumn(name = "positionid"),
+            inverseJoinColumns = @JoinColumn(name = "employeeid"))
     private List<Employee> employees = new ArrayList<>();
 
     public Position() {

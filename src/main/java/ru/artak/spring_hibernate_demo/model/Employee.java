@@ -1,5 +1,6 @@
 package ru.artak.spring_hibernate_demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
@@ -27,8 +28,10 @@ public class Employee {
             inverseJoinColumns = @JoinColumn(name = "positionid"))
     private List<Position> positions = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "employee", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "employeeid", referencedColumnName = "id")
     private List<ContactDetails> contaktDetail = new ArrayList<>();
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "passport_id", referencedColumnName = "id")
     private Passport passport;
@@ -68,11 +71,6 @@ public class Employee {
 
     public void setContaktDetail(List<ContactDetails> items) {
         this.contaktDetail = items;
-    }
-
-    public void addContactDetails(ContactDetails contactDetails) {
-        contaktDetail.add(contactDetails);
-        contactDetails.setEmployee(this);
     }
 
     public List<Position> getPositions() {

@@ -19,9 +19,6 @@ public class ContactDetails {
     private Long id;
     private String email;
     private String phoneNumber;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "employeeid")
-    private Employee employee;
 
     public ContactDetails() {
     }
@@ -31,11 +28,4 @@ public class ContactDetails {
         this.phoneNumber = phoneNumber;
     }
 
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
 }

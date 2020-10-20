@@ -18,8 +18,6 @@ public class Passport {
                     value = "passport_id_seq"))
     private Long id;
     private String passportNumber;
-    @OneToOne(mappedBy = "passport", cascade = CascadeType.ALL)
-    private Employee employee;
 
     public Passport() {
     }
@@ -36,11 +34,4 @@ public class Passport {
         return passportNumber;
     }
 
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
 }
