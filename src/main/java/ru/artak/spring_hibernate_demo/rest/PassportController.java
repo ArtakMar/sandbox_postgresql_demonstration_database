@@ -10,7 +10,7 @@ import ru.artak.spring_hibernate_demo.model.Passport;
 import ru.artak.spring_hibernate_demo.service.PassportService;
 
 @RestController
-@RequestMapping(value = "/app/rest/passport")
+@RequestMapping(value = "/v1/passport")
 public class PassportController {
     private final PassportService passportService;
 
@@ -19,7 +19,7 @@ public class PassportController {
     }
 
     @GetMapping(value = "{id}")
-    public ResponseEntity<Passport> getPassportById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Passport> getPassportById(@PathVariable Long id) {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -33,6 +33,6 @@ public class PassportController {
         return new ResponseEntity<>(passport, HttpStatus.OK);
     }
 
-    }
+}
 
 

@@ -10,7 +10,7 @@ import ru.artak.spring_hibernate_demo.service.EmployeeService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/app/rest/employee")
+@RequestMapping("/v1/employee")
 public class EmployeeRestController {
     private final EmployeeService employeeService;
 
@@ -19,12 +19,12 @@ public class EmployeeRestController {
     }
 
     @GetMapping(value = "{id}")
-    public ResponseEntity<Employee> getEmployee(@PathVariable(value = "id") Long employeeId) {
-        if (employeeId == null) {
+    public ResponseEntity<Employee> getEmployee(@PathVariable Long id) {
+        if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        Employee employee = this.employeeService.getById(employeeId);
+        Employee employee = this.employeeService.getById(id);
 
         if (employee == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -47,20 +47,18 @@ public class EmployeeRestController {
     @GetMapping
     public ResponseEntity<List<Employee>> getAll() {
         List<Employee> employees = employeeService.getAllEmployee();
-        if (employees.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "{id}")
-    public ResponseEntity<Employee> deleteEmployee(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Employee> deleteEmployee(@PathVariable Long id) {
         Employee employee = employeeService.getById(id);
         if (employee == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         employeeService.delete(id);
 
-        return new ResponseEntity<>(employee, HttpStatus.CREATED);
+        return new ResponseEntity<>(employee, HttpStatus.NO_CONTENT);
     }
+
 }

@@ -5,7 +5,7 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 import javax.persistence.*;
 
-@Entity()
+@Entity
 @Table(name = "passport")
 public class Passport {
     @Id

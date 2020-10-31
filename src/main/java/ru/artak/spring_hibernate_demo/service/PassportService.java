@@ -1,6 +1,5 @@
 package ru.artak.spring_hibernate_demo.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.artak.spring_hibernate_demo.model.Passport;
 import ru.artak.spring_hibernate_demo.repository.PassportRepo;
@@ -13,7 +12,7 @@ public class PassportService {
         this.passportRepo = passportRepo;
     }
 
-    public Passport getById(Long id){
+    public Passport getById(Long id) {
         return passportRepo.getOne(id);
     }
 }

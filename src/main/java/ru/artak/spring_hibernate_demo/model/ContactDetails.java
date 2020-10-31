@@ -20,6 +20,7 @@ public class ContactDetails {
     private String email;
     private String phoneNumber;
 
+
     public ContactDetails() {
     }
 
@@ -27,5 +28,6 @@ public class ContactDetails {
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
+
 
 }

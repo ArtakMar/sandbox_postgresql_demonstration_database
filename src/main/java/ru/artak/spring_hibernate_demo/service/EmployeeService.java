@@ -1,6 +1,7 @@
 package ru.artak.spring_hibernate_demo.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.artak.spring_hibernate_demo.model.Employee;
 import ru.artak.spring_hibernate_demo.repository.EmployeeRepository;
 
@@ -14,20 +15,26 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public Employee getById(Long id){
-        return employeeRepository.getOne(id);
+    public Employee getById(Long id) {
+        Employee employee = employeeRepository.getOne(id);
+        if (employee != null) {
+            return employee;
+        }
+        return null;
     }
 
-    public void save(Employee employee){
+    @Transactional
+    public void save(Employee employee) {
         employeeRepository.save(employee);
     }
 
-    public void  delete(Long id){
+    public void delete(Long id) {
         employeeRepository.deleteById(id);
     }
 
-    public List<Employee> getAllEmployee(){
+    public List<Employee> getAllEmployee() {
         return employeeRepository.findAll();
     }
+
 
 }
