@@ -27,8 +27,10 @@ public class Employee {
             inverseJoinColumns = @JoinColumn(name = "positionid"))
     private List<Position> positions = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "employee", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "employeeid", referencedColumnName = "id")
     private List<ContactDetails> contaktDetail = new ArrayList<>();
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "passport_id", referencedColumnName = "id")
     private Passport passport;
@@ -70,11 +72,6 @@ public class Employee {
         this.contaktDetail = items;
     }
 
-    public void addContactDetails(ContactDetails contactDetails) {
-        contaktDetail.add(contactDetails);
-        contactDetails.setEmployee(this);
-    }
-
     public List<Position> getPositions() {
         return positions;
     }
@@ -82,4 +79,5 @@ public class Employee {
     public void setPositions(List<Position> positions) {
         this.positions = positions;
     }
+
 }
