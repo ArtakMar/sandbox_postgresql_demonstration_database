@@ -20,9 +20,6 @@ public class EmployeeRestController {
 
     @GetMapping(value = "{id}")
     public ResponseEntity<Employee> getEmployee(@PathVariable Long id) {
-        if (id == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
 
         Employee employee = this.employeeService.getById(id);
 
@@ -35,10 +32,6 @@ public class EmployeeRestController {
 
     @PostMapping()
     public ResponseEntity<Employee> saveEmployee(@RequestBody @Validated Employee employee) {
-
-        if (employee == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
 
         this.employeeService.save(employee);
         return new ResponseEntity<>(employee, HttpStatus.CREATED);
