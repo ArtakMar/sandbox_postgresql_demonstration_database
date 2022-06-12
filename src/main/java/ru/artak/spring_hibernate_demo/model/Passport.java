@@ -34,4 +34,8 @@ public class Passport {
         return passportNumber;
     }
 
+    public void setPassportNumber(String passportNumber)
+    {
+        this.passportNumber = passportNumber;
+    }
 }
